@@ -35,50 +35,40 @@ router.get("/:id", async (req, res) => {
 });
 
 router.post("/", async (req, res) => {
-  try {
-    const { senderId, receiverId, title, content } = req.body;
+  const { senderId, receiverId, title, content } = req.body;
 
-    if (!senderId || !title || !content) {
-      return res
-        .status(400)
-        .json({ error: "senderId, title and content are required" });
-    }
-
-    const newPost = new db.Post({ senderId, receiverId, title, content });
-    const savedPost = await newPost.save();
-
-    res.status(201).json(savedPost);
-  } catch (err) {
-    console.error(err);
-    res.status(500).json({ error: "Internal server error" });
+  if (!senderId || !title || !content) {
+    return res
+      .status(400)
+      .json({ error: "senderId, title and content are required" });
   }
+
+  const newPost = new db.Post({ senderId, receiverId, title, content });
+  const savedPost = await newPost.save();
+
+  res.status(201).json(savedPost);
 });
 
 router.put("/:id", async (req, res) => {
-  try {
-    const { senderId, receiverId, title, content } = req.body;
+  const { senderId, receiverId, title, content } = req.body;
 
-    if (!senderId && !receiverId && !title && !content) {
-      return res.status(400).json({ error: "No fields provided to update" });
-    }
-
-    const updatedPost = await db.Post.findByIdAndUpdate(
-      req.params.id,
-      { senderId, receiverId, title, content },
-      { new: true, runValidators: true }
-    );
-
-    if (!updatedPost) {
-      return res
-        .status(404)
-        .json({ error: `Post with id '${req.params.id}' not found` });
-    }
-
-    res.json(updatedPost);
-  } catch (err) {
-    console.error(err);
-    res.status(500).json({ error: "Internal server error" });
+  if (!senderId && !receiverId && !title && !content) {
+    return res.status(400).json({ error: "No fields provided to update" });
   }
+
+  const updatedPost = await db.Post.findByIdAndUpdate(
+    req.params.id,
+    { senderId, receiverId, title, content },
+    { new: true, runValidators: true }
+  );
+
+  if (!updatedPost) {
+    return res
+      .status(404)
+      .json({ error: `Post with id '${req.params.id}' not found` });
+  }
+
+  res.json(updatedPost);
 });
 
 module.exports = router;
