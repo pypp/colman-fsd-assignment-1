@@ -19,13 +19,19 @@ router.get("/all", async (_req, res) => {
 });
 
 router.get("/:id", async (req, res) => {
-  const post = await db.Post.find({ _id: req.params.id });
-  if (!post) {
-    return res
-      .status(404)
-      .json({ error: `Post with id: '${req.params.id}' not found` });
+  try {
+    const post = await db.Post.findById(req.params.id);
+
+    if (!post) {
+      return res
+        .status(404)
+        .json({ error: `Post with id '${req.params.id}' not found` });
+    }
+
+    res.json(post);
+  } catch (err) {
+    res.status(400).json({ error: "Invalid ID format" });
   }
-  res.json(post);
 });
 
 router.post("/", async (req, res) => {
