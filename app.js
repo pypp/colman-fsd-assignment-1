@@ -10,7 +10,7 @@ const PORT = process.env.PORT || 3000;
 app.use(express.json());
 
 app.use("/post/", postsRouter);
-app.use("/comments", commentsRouter);
+app.use("/comments/", commentsRouter);
 
 app.listen(PORT, () => {
   console.log(`Server listening on port ${PORT}`);

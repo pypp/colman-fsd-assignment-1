@@ -8,7 +8,6 @@ router.get("/all", async (_req, res) => {
     const comments = await Comment.find();
     res.json(comments);
   } catch (err) {
-    console.error(err);
     res.status(500).json({ error: "Internal server error" });
   }
 });
@@ -18,7 +17,6 @@ router.get("/post/:postId", async (req, res) => {
     const comments = await Comment.find({ postId: req.params.postId });
     res.json(comments);
   } catch (err) {
-    console.error(err);
     res.status(500).json({ error: "Internal server error" });
   }
 });
@@ -38,7 +36,6 @@ router.post("/", async (req, res) => {
 
     res.status(201).json(savedComment);
   } catch (err) {
-    console.error(err);
     res.status(500).json({ error: "Internal server error" });
   }
 });
@@ -65,7 +62,6 @@ router.put("/:id", async (req, res) => {
 
     res.json(updatedComment);
   } catch (err) {
-    console.error(err);
     res.status(500).json({ error: "Internal server error" });
   }
 });
@@ -82,7 +78,6 @@ router.delete("/:id", async (req, res) => {
 
     res.json({ message: "Comment deleted" });
   } catch (err) {
-    console.error(err);
     res.status(500).json({ error: "Internal server error" });
   }
 });
