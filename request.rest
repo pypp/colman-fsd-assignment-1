@@ -47,3 +47,47 @@ Update an existing post.
 **Description:** Updates the specified post. Returns 404 if the post doesn’t exist.
 
 ---
+
+## Comments API Documentation
+
+#### **GET /comments/**  
+Fetch all comments.  
+**Description:** Returns all comments stored in the database.
+
+---
+
+#### **GET /comments/post/:postId**  
+Fetch all comments for a specific post.  
+**Params:**  
+- `postId` — The ID of the post.  
+**Description:** Returns all comments associated with the specified post.
+
+---
+
+#### **POST /comments/**  
+Create a new comment.  
+**Body:**  
+- `postId` (required) — The ID of the post this comment belongs to.  
+- `sender` (required) — The author or sender of the comment.  
+- `text` (required) — The content of the comment.  
+**Description:** Creates and stores a new comment and returns the saved record.
+
+---
+
+#### **PUT /comments/:id**  
+Update an existing comment.  
+**Params:**  
+- `id` — The comment ID.  
+**Body:** Any of:  
+- `postId`  
+- `sender`  
+- `text`  
+**Description:** Updates the specified comment. Returns 404 if the comment doesn’t exist.
+
+---
+
+#### **DELETE /comments/:id**  
+Delete a comment by its ID.  
+**Params:**  
+- `id` — The comment ID.  
+**Description:** Deletes the specified comment. Returns 404 if the comment doesn’t exist.
