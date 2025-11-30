@@ -1,0 +1,49 @@
+# API Docs
+
+## Posts API Documentation
+
+#### **GET /post/**  
+Fetch all posts by a specific sender.  
+**Query Params:**  
+- `sender_id` (required) — The ID of the sender.  
+**Description:** Returns all posts created by the given sender.
+
+---
+
+#### **GET /post/all**  
+Fetch all posts in the database.  
+**Description:** Returns a list of all posts.
+
+---
+
+#### **GET /post/:id**  
+Fetch a post by its unique ID.  
+**Params:**  
+- `id` — The post ID.  
+**Description:** Returns the post with the specified ID, or 404 if not found.
+
+---
+
+#### **POST /post/**  
+Create a new post.  
+**Body:**  
+- `senderId` (required)  
+- `receiverId` (optional)  
+- `title` (required)  
+- `content` (required)  
+**Description:** Creates and stores a new post and returns the saved record.
+
+---
+
+#### **PUT /post/:id**  
+Update an existing post.  
+**Params:**  
+- `id` — The post ID.  
+**Body:** Any of:  
+- `senderId`  
+- `receiverId`  
+- `title`  
+- `content`  
+**Description:** Updates the specified post. Returns 404 if the post doesn’t exist.
+
+---
