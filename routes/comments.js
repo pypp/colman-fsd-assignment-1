@@ -12,9 +12,9 @@ router.get("/all", async (_req, res) => {
   }
 });
 
-router.get("/post/:postId", async (req, res) => {
+router.get("/:id", async (req, res) => {
   try {
-    const comments = await Comment.find({ postId: req.params.postId });
+    const comments = await Comment.find({ postId: req.params.id });
     res.json(comments);
   } catch (err) {
     res.status(500).json({ error: "Internal server error" });
