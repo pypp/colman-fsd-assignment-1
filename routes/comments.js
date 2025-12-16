@@ -14,10 +14,16 @@ router.get("/all", async (_req, res) => {
 
 router.get("/:id", async (req, res) => {
   try {
-    const comments = await Comment.find({ postId: req.params.id });
-    res.json(comments);
+    const comment = await Comment.findById(req.params.id);
+    if (!comment) {
+      return res
+        .status(404)
+        .json({ error: `Comment with id '${req.params.id}' not found` });
+    }
+
+    res.json(comment);
   } catch (err) {
-    res.status(500).json({ error: "Internal server error" });
+    res.status(400).json({ error: "Invalid ID format" });
   }
 });
 

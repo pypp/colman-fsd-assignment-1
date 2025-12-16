@@ -1,5 +1,5 @@
 const express = require("express");
-const db = require("../models/db");
+const { Post } = require("../models/db");
 
 const router = express.Router();
 
@@ -9,18 +9,18 @@ router.get("/", async (req, res) => {
       .status(400)
       .json({ error: "sender_id query parameter is required" });
   }
-  const posts = await db.Post.find({ senderId: req.query.sender_id });
+  const posts = await Post.find({ senderId: req.query.sender_id });
   res.json(posts);
 });
 
 router.get("/all", async (_req, res) => {
-  const allPosts = await db.Post.find();
+  const allPosts = await Post.find();
   res.json(allPosts);
 });
 
 router.get("/:id", async (req, res) => {
   try {
-    const post = await db.Post.findById(req.params.id);
+    const post = await Post.findById(req.params.id);
 
     if (!post) {
       return res
@@ -44,7 +44,7 @@ router.post("/", async (req, res) => {
         .json({ error: "senderId, title and content are required" });
     }
 
-    const newPost = new db.Post({ senderId, receiverId, title, content });
+    const newPost = new Post({ senderId, receiverId, title, content });
     const savedPost = await newPost.save();
 
     res.status(201).json(savedPost);
@@ -62,7 +62,7 @@ router.put("/:id", async (req, res) => {
       return res.status(400).json({ error: "No fields provided to update" });
     }
 
-    const updatedPost = await db.Post.findByIdAndUpdate(
+    const updatedPost = await Post.findByIdAndUpdate(
       req.params.id,
       { senderId, receiverId, title, content },
       { new: true, runValidators: true }
